@@ -16,5 +16,4 @@ public class IndexController {
         model.addAttribute("user", "Lidija");
         return "index";
     }
-
 }
