@@ -10,4 +10,8 @@ public interface AccidentRepository {
 
     void addAccident(Accident accident);
 
+    void editAccident(Accident accident);
+
+    Accident getAccident(int id);
+
 }

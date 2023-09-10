@@ -22,4 +22,14 @@ public class AccidentServiceImpl implements AccidentService {
     public void addAccident(Accident accident) {
         accidentRepository.addAccident(accident);
     }
+
+    @Override
+    public void editAccident(Accident accident) {
+        accidentRepository.editAccident(accident);
+    }
+
+    @Override
+    public Accident getAccident(int id) {
+        return accidentRepository.getAccident(id);
+    }
 }

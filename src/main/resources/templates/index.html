@@ -12,23 +12,23 @@
 </head>
 
 <body>
-
+<div class="container">
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Car accidents</a>
+        <a class="navbar-brand" href="/">Car accidents</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Nav 1</a>
+                    <a class="nav-link active" aria-current="page" href="/">Main</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nav 2</a>
+                    <a class="nav-link" href="/">Accidents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nav 3</a>
+                    <a class="nav-link" href="/accidents/createAccident">Add accident</a>
                 </li>
                 <li class="nav-item">
                     <span th:text="${user}" class="nav-link disabled" tabindex="-1" aria-disabled="true"></span>
@@ -45,6 +45,7 @@
         <th scope="col">Name</th>
         <th scope="col">Description</th>
         <th scope="col">Address</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -53,9 +54,13 @@
         <td th:text="${accident.name}"></td>
         <td th:text="${accident.text}"></td>
         <td th:text="${accident.address}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/accidents/{id}(id=${accident.id})}" role="button">Edit</a>
+        </td>
     </tr>
     </tbody>
 </table>
-
+    <a class="btn btn-primary" href="/accidents/createAccident" role="button">Add accident</a>
+</div>
 </body>
 </html>

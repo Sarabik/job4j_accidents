@@ -10,4 +10,8 @@ public interface AccidentService {
 
     void addAccident(Accident accident);
 
+    void editAccident(Accident accident);
+
+    Accident getAccident(int id);
+
 }
