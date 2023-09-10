@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentRepository;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 
@@ -12,6 +13,7 @@ import java.util.Collection;
 public class AccidentServiceImpl implements AccidentService {
 
     private final AccidentRepository accidentRepository;
+    private final AccidentTypeRepository accidentTypeRepository;
 
     @Override
     public Collection<Accident> getAllAccidents() {

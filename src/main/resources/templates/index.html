@@ -45,6 +45,7 @@
         <th scope="col">Name</th>
         <th scope="col">Description</th>
         <th scope="col">Address</th>
+        <th scope="col">Accident type</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -54,6 +55,7 @@
         <td th:text="${accident.name}"></td>
         <td th:text="${accident.text}"></td>
         <td th:text="${accident.address}"></td>
+        <td th:text="${accident.type.name}"></td>
         <td>
             <a class="btn btn-primary" th:href="@{|/accidents/editAccident?id=${accident.id}|}" role="button">Edit</a>
         </td>
