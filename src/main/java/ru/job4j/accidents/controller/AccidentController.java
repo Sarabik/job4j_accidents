@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeService;
@@ -25,8 +24,6 @@ public class AccidentController {
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
-        addSomeAccidentTypes();
-        addSomeRules();
         model.addAttribute("types", accidentTypeService.getAllAccidentTypes());
         model.addAttribute("rules", ruleService.getAllRules());
         return "accidents/createAccident";
@@ -37,13 +34,11 @@ public class AccidentController {
         int typeId = accident.getType().getId();
         accident.setType(accidentTypeService.getAccidentType(typeId));
         String[] ruleIds = req.getParameterValues("rIds");
-        if (ruleIds != null) {
-            Set<Rule> rules = new HashSet<>();
-            for (String id : ruleIds) {
-                rules.add(ruleService.getRule(Integer.parseInt(id)));
-            }
-            accident.setRules(rules);
+        Set<Rule> rules = new HashSet<>();
+        for (String id : ruleIds) {
+            rules.add(ruleService.getRule(Integer.parseInt(id)));
         }
+        accident.setRules(rules);
         accidentService.addAccident(accident);
         return "redirect:/index";
     }
@@ -70,17 +65,5 @@ public class AccidentController {
         }
         accidentService.editAccident(accident);
         return "redirect:/index";
-    }
-
-    private void addSomeAccidentTypes() {
-        accidentTypeService.addAccidentType(new AccidentType(1, "Two cars"));
-        accidentTypeService.addAccidentType(new AccidentType(2, "Car and person"));
-        accidentTypeService.addAccidentType(new AccidentType(3, "Car and bicycle"));
-    }
-
-    private void addSomeRules() {
-        ruleService.addRule(new Rule(1, "Article 1"));
-        ruleService.addRule(new Rule(2, "Article 2"));
-        ruleService.addRule(new Rule(3, "Article 3"));
     }
 }

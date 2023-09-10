@@ -8,7 +8,7 @@ public interface AccidentRepository {
 
     Collection<Accident> getAllAccidents();
 
-    void addAccident(Accident accident);
+    Accident addAccident(Accident accident);
 
     void editAccident(Accident accident);
 
