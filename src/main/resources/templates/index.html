@@ -55,7 +55,7 @@
         <td th:text="${accident.text}"></td>
         <td th:text="${accident.address}"></td>
         <td>
-            <a class="btn btn-primary" th:href="@{/accidents/{id}(id=${accident.id})}" role="button">Edit</a>
+            <a class="btn btn-primary" th:href="@{|/accidents/editAccident?id=${accident.id}|}" role="button">Edit</a>
         </td>
     </tr>
     </tbody>

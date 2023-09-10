@@ -24,8 +24,8 @@ public class AccidentController {
         return "redirect:/index";
     }
 
-    @GetMapping("/{id}")
-    public String viewEditAccident(@PathVariable int id, Model model) {
+    @GetMapping("/editAccident")
+    public String viewEditAccident(@RequestParam("id") int id, Model model) {
         model.addAttribute("accident", accidentService.getAccident(id));
         return "accidents/editAccident";
     }
