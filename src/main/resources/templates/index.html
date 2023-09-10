@@ -37,5 +37,25 @@
         </div>
     </div>
 </nav>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="accident: ${accidents}">
+        <th scope="row" th:text="${accident.id}"></th>
+        <td th:text="${accident.name}"></td>
+        <td th:text="${accident.text}"></td>
+        <td th:text="${accident.address}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
