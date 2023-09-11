@@ -10,7 +10,6 @@ import ru.job4j.accidents.model.Rule;
 
 import java.util.*;
 
-@Repository
 @AllArgsConstructor
 public class AccidentJdbcTemplate implements AccidentRepository {
 
@@ -66,15 +65,15 @@ public class AccidentJdbcTemplate implements AccidentRepository {
     }
 
     @Override
-    public void editAccident(Accident accident) {
-        jdbc.update("""
+    public boolean editAccident(Accident accident) {
+        boolean changed = jdbc.update("""
                 UPDATE accidents SET name = ?, text = ?, address = ?, accident_types_id = ?
                 WHERE id = ?""",
                 accident.getName(),
                 accident.getText(),
                 accident.getAddress(),
                 accident.getType().getId(),
-                accident.getId());
+                accident.getId()) > 0;
         jdbc.update("DELETE FROM accidents_rules WHERE id = ?", accident.getId());
         Set<Rule> rules = accident.getRules();
         for (Rule rule : rules) {
@@ -84,10 +83,11 @@ public class AccidentJdbcTemplate implements AccidentRepository {
                     accident.getId(),
                     rule.getId());
         }
+        return changed;
     }
 
     @Override
-    public Accident getAccident(int id) {
+    public Optional<Accident> getAccident(int id) {
         return jdbc.queryForObject("SELECT * from accidents WHERE id = ?",
                 new Object[]{id},
                 (rs, rowNum) -> {
@@ -105,7 +105,7 @@ public class AccidentJdbcTemplate implements AccidentRepository {
                                     new Object[]{accident.getId()},
                                     (rs1, row1) -> ruleRepository.getRule(rs1.getInt("rules_id"))));
                     accident.setRules(rules);
-                    return accident;
+                    return Optional.of(accident);
                 });
     }
 
