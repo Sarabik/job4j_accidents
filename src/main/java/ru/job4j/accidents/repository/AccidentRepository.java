@@ -3,6 +3,7 @@ package ru.job4j.accidents.repository;
 import ru.job4j.accidents.model.Accident;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface AccidentRepository {
 
@@ -10,8 +11,8 @@ public interface AccidentRepository {
 
     Accident addAccident(Accident accident);
 
-    void editAccident(Accident accident);
+    boolean editAccident(Accident accident);
 
-    Accident getAccident(int id);
+    Optional<Accident> getAccident(int id);
 
 }

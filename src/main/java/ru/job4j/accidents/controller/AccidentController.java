@@ -5,14 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeService;
 import ru.job4j.accidents.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -31,39 +29,34 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        int typeId = accident.getType().getId();
-        accident.setType(accidentTypeService.getAccidentType(typeId));
         String[] ruleIds = req.getParameterValues("rIds");
-        Set<Rule> rules = new HashSet<>();
-        for (String id : ruleIds) {
-            rules.add(ruleService.getRule(Integer.parseInt(id)));
-        }
-        accident.setRules(rules);
-        accidentService.addAccident(accident);
+        accidentService.addAccident(
+                accidentService.addRulesAndAccidentType(accident, ruleIds));
         return "redirect:/index";
     }
 
     @GetMapping("/editAccident")
     public String viewEditAccident(@RequestParam("id") int id, Model model) {
         model.addAttribute("types", accidentTypeService.getAllAccidentTypes());
-        model.addAttribute("accident", accidentService.getAccident(id));
+        Optional<Accident> optional = accidentService.getAccident(id);
+        if (optional.isEmpty()) {
+            model.addAttribute("message", "Accident is not found");
+            return "errors/404";
+        }
+        model.addAttribute("accident", accidentService.getAccident(id).get());
         model.addAttribute("rules", ruleService.getAllRules());
         return "accidents/editAccident";
     }
 
     @PostMapping("/editAccident")
-    public String edit(@ModelAttribute Accident accident, HttpServletRequest req) {
-        int typeId = accident.getType().getId();
-        accident.setType(accidentTypeService.getAccidentType(typeId));
+    public String edit(@ModelAttribute Accident accident, HttpServletRequest req, Model model) {
         String[] ruleIds = req.getParameterValues("rIds");
-        if (ruleIds != null) {
-            Set<Rule> rules = new HashSet<>();
-            for (String id : ruleIds) {
-                rules.add(ruleService.getRule(Integer.parseInt(id)));
-            }
-            accident.setRules(rules);
+        boolean changed = accidentService.editAccident(
+                accidentService.addRulesAndAccidentType(accident, ruleIds));
+        if (!changed) {
+            model.addAttribute("message", "Accident is not found");
+            return "errors/404";
         }
-        accidentService.editAccident(accident);
         return "redirect:/index";
     }
 }

@@ -3,6 +3,7 @@ package ru.job4j.accidents.service;
 import ru.job4j.accidents.model.Accident;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface AccidentService {
 
@@ -10,8 +11,10 @@ public interface AccidentService {
 
     void addAccident(Accident accident);
 
-    void editAccident(Accident accident);
+    Accident addRulesAndAccidentType(Accident accident, String[] ruleIds);
 
-    Accident getAccident(int id);
+    boolean editAccident(Accident accident);
+
+    Optional<Accident> getAccident(int id);
 
 }
