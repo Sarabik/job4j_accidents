@@ -15,6 +15,12 @@ public class RuleMem implements RuleRepository {
 
     private Map<Integer, Rule> rules = new ConcurrentHashMap<>();
 
+    public RuleMem() {
+        addRule(new Rule(1, "Article 1"));
+        addRule(new Rule(2, "Article 2"));
+        addRule(new Rule(3, "Article 3"));
+    }
+
     @Override
     public Rule getRule(int id) {
         return rules.get(id);

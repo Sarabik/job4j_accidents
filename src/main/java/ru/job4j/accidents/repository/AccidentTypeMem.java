@@ -15,6 +15,12 @@ public class AccidentTypeMem implements AccidentTypeRepository {
 
     private Map<Integer, AccidentType> accidentTypes = new ConcurrentHashMap<>();
 
+    public AccidentTypeMem() {
+        addAccidentType(new AccidentType(1, "Two cars"));
+        addAccidentType(new AccidentType(2, "Car and person"));
+        addAccidentType(new AccidentType(3, "Car and bicycle"));
+    }
+
     @Override
     public AccidentType getAccidentType(int id) {
         return accidentTypes.get(id);
