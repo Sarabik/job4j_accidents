@@ -16,6 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("/accidents")
 public class AccidentController {
+
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;

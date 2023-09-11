@@ -38,4 +38,5 @@ public class AccidentMem implements AccidentRepository {
     public Optional<Accident> getAccident(int id) {
         return Optional.of(accidents.get(id));
     }
+
 }
