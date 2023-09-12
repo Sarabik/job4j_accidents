@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class AccidentMem implements AccidentRepository {
 
     private static AtomicInteger counter = new AtomicInteger(0);
