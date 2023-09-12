@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.AccidentRepository;
+import ru.job4j.accidents.repository.AccidentTypeRepository;
+import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,9 +19,9 @@ public class AccidentServiceImpl implements AccidentService {
 
     private final AccidentRepository accidentRepository;
 
-    private final RuleService ruleService;
+    private final RuleRepository ruleRepository;
 
-    private final AccidentTypeService accidentTypeService;
+    private final AccidentTypeRepository accidentTypeRepository;
 
     @Override
     public Collection<Accident> getAllAccidents() {
@@ -32,20 +34,29 @@ public class AccidentServiceImpl implements AccidentService {
     }
 
     @Override
+    public void addAccident(Accident accident, String[] ruleIds) {
+        addAccident(addRulesAndAccidentType(accident, ruleIds));
+    }
+
     public Accident addRulesAndAccidentType(Accident accident, String[] ruleIds) {
         Set<Rule> rules = new HashSet<>();
         for (String id : ruleIds) {
-            rules.add(ruleService.getRule(Integer.parseInt(id)));
+            rules.add(ruleRepository.getRule(Integer.parseInt(id)));
         }
         accident.setRules(rules);
         int typeId = accident.getType().getId();
-        accident.setType(accidentTypeService.getAccidentType(typeId));
+        accident.setType(accidentTypeRepository.getAccidentType(typeId));
         return accident;
     }
 
     @Override
     public boolean editAccident(Accident accident) {
         return accidentRepository.editAccident(accident);
+    }
+
+    @Override
+    public boolean editAccident(Accident accident, String[] ruleIds) {
+        return editAccident(addRulesAndAccidentType(accident, ruleIds));
     }
 
     @Override

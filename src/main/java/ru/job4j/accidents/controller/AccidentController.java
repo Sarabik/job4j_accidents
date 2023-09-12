@@ -31,8 +31,7 @@ public class AccidentController {
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ruleIds = req.getParameterValues("rIds");
-        accidentService.addAccident(
-                accidentService.addRulesAndAccidentType(accident, ruleIds));
+        accidentService.addAccident(accident, ruleIds);
         return "redirect:/index";
     }
 
@@ -52,8 +51,7 @@ public class AccidentController {
     @PostMapping("/editAccident")
     public String edit(@ModelAttribute Accident accident, HttpServletRequest req, Model model) {
         String[] ruleIds = req.getParameterValues("rIds");
-        boolean changed = accidentService.editAccident(
-                accidentService.addRulesAndAccidentType(accident, ruleIds));
+        boolean changed = accidentService.editAccident(accident, ruleIds);
         if (!changed) {
             model.addAttribute("message", "Accident is not found");
             return "errors/404";

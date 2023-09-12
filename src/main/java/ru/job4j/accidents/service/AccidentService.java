@@ -11,9 +11,11 @@ public interface AccidentService {
 
     void addAccident(Accident accident);
 
-    Accident addRulesAndAccidentType(Accident accident, String[] ruleIds);
+    void addAccident(Accident accident, String[] ruleIds);
 
     boolean editAccident(Accident accident);
+
+    boolean editAccident(Accident accident, String[] ruleIds);
 
     Optional<Accident> getAccident(int id);
 
