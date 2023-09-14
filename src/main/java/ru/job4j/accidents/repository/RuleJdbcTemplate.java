@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
 
-import java.util.Collection;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -16,13 +16,12 @@ public class RuleJdbcTemplate implements RuleRepository {
     @Override
     public Rule getRule(int id) {
         return jdbc.queryForObject("SELECT * from rules WHERE id = ?",
-                new Object[]{id},
                 (rs, rowNum) -> {
                     Rule rule = new Rule();
                     rule.setName(rs.getString("name"));
                     rule.setId(rs.getInt("id"));
                     return rule;
-                });
+                }, id);
     }
 
     @Override
@@ -40,5 +39,19 @@ public class RuleJdbcTemplate implements RuleRepository {
                     rule.setName(rs.getString("name"));
                     return rule;
                 });
+    }
+
+    @Override
+    public Set<Rule> getRulesByIds(String[] ids) {
+        String ruleIds = String.join(",", Collections.nCopies(ids.length, "?"));
+        Collection<Rule> col = jdbc.query(
+                String.format("SELECT * from rules WHERE CAST(id AS VARCHAR) IN (%s)", ruleIds),
+                (rs, rowNum) -> {
+                    Rule rule = new Rule();
+                    rule.setName(rs.getString("name"));
+                    rule.setId(rs.getInt("id"));
+                    return rule;
+                }, ids);
+        return new HashSet<>(col);
     }
 }

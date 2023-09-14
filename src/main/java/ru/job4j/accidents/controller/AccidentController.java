@@ -58,5 +58,4 @@ public class AccidentController {
         }
         return "redirect:/index";
     }
-
 }

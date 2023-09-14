@@ -21,8 +21,6 @@ public class AccidentServiceImpl implements AccidentService {
 
     private final RuleRepository ruleRepository;
 
-    private final AccidentTypeRepository accidentTypeRepository;
-
     @Override
     public Collection<Accident> getAllAccidents() {
         return accidentRepository.getAllAccidents();
@@ -35,18 +33,7 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public void addAccident(Accident accident, String[] ruleIds) {
-        addAccident(addRulesAndAccidentType(accident, ruleIds));
-    }
-
-    public Accident addRulesAndAccidentType(Accident accident, String[] ruleIds) {
-        Set<Rule> rules = new HashSet<>();
-        for (String id : ruleIds) {
-            rules.add(ruleRepository.getRule(Integer.parseInt(id)));
-        }
-        accident.setRules(rules);
-        int typeId = accident.getType().getId();
-        accident.setType(accidentTypeRepository.getAccidentType(typeId));
-        return accident;
+        accident.setRules(ruleRepository.getRulesByIds(ruleIds));
     }
 
     @Override
@@ -56,7 +43,8 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public boolean editAccident(Accident accident, String[] ruleIds) {
-        return editAccident(addRulesAndAccidentType(accident, ruleIds));
+        accident.setRules(ruleRepository.getRulesByIds(ruleIds));
+        return editAccident(accident);
     }
 
     @Override
