@@ -3,15 +3,11 @@ package ru.job4j.accidents.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.AccidentRepository;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
 import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -34,6 +30,7 @@ public class AccidentServiceImpl implements AccidentService {
     @Override
     public void addAccident(Accident accident, String[] ruleIds) {
         accident.setRules(ruleRepository.getRulesByIds(ruleIds));
+        addAccident(accident);
     }
 
     @Override
