@@ -9,7 +9,6 @@ import ru.job4j.accidents.repository.RuleRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-@Service
 @AllArgsConstructor
 public class AccidentServiceImpl implements AccidentService {
 

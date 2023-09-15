@@ -7,7 +7,6 @@ import ru.job4j.accidents.repository.RuleRepository;
 
 import java.util.Collection;
 
-@Service
 @AllArgsConstructor
 public class RuleServiceImpl implements RuleService {
 

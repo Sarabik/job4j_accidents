@@ -7,7 +7,6 @@ import ru.job4j.accidents.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 
-@Service
 @AllArgsConstructor
 public class AccidentTypeServiceImpl implements AccidentTypeService {
 

@@ -9,7 +9,6 @@ import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
 
-@Repository
 @AllArgsConstructor
 public class AccidentTypeHibernate implements AccidentTypeRepository {
 
