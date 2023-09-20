@@ -11,7 +11,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class RuleDataService implements RuleService {
 
-    RuleDataRepository ruleDataRepository;
+    private final RuleDataRepository ruleDataRepository;
 
     @Override
     public Rule getRule(int id) {

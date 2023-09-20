@@ -11,7 +11,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class AccidentTypeDataService implements AccidentTypeService {
 
-    AccidentTypeDataRepository accidentTypeDataRepository;
+    private final AccidentTypeDataRepository accidentTypeDataRepository;
 
     @Override
     public AccidentType getAccidentType(int id) {
