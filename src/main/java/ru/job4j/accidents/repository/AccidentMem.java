@@ -21,11 +21,11 @@ public class AccidentMem implements AccidentRepository {
     }
 
     @Override
-    public Accident addAccident(Accident accident) {
+    public Optional<Accident> addAccident(Accident accident) {
         int id = counter.incrementAndGet();
         accident.setId(id);
         accidents.put(id, accident);
-        return accident;
+        return Optional.ofNullable(accident);
     }
 
     @Override

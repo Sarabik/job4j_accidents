@@ -17,7 +17,7 @@ public class AccidentJdbcTemplate implements AccidentRepository {
     private final JdbcTemplate jdbc;
 
     @Override
-    public Accident addAccident(Accident accident) {
+    public Optional<Accident> addAccident(Accident accident) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("name", accident.getName());
         parameters.put("text", accident.getText());
@@ -36,7 +36,7 @@ public class AccidentJdbcTemplate implements AccidentRepository {
                     id,
                     rule.getId());
         }
-        return accident;
+        return Optional.ofNullable(accident);
     }
 
     @Override

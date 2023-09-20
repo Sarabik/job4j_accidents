@@ -9,7 +9,7 @@ public interface AccidentRepository {
 
     Collection<Accident> getAllAccidents();
 
-    Accident addAccident(Accident accident);
+    Optional<Accident> addAccident(Accident accident);
 
     boolean editAccident(Accident accident);
 
