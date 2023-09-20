@@ -1,41 +1,30 @@
 package ru.job4j.accidents.repository;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
+import java.util.Map;
 
 @AllArgsConstructor
 public class AccidentTypeHibernate implements AccidentTypeRepository {
 
-    private final SessionFactory sf;
+    private final CrudRepository crudRepository;
 
     @Override
     public AccidentType getAccidentType(int id) {
-        try (Session session = sf.openSession()) {
-            return session.get(AccidentType.class, id);
-        }
+        return crudRepository.getOptional("FROM AccidentType WHERE id = :id",
+                AccidentType.class, Map.of("id", id)).get();
     }
 
     @Override
     public void addAccidentType(AccidentType accidentType) {
-        try (Session session = sf.openSession()) {
-            Transaction tr = session.beginTransaction();
-            session.persist(accidentType);
-            tr.commit();
-        }
+        crudRepository.getOptional(accidentType);
     }
 
     @Override
     public Collection<AccidentType> getAllAccidentTypes() {
-        try (Session session = sf.openSession()) {
-            return session
-                    .createQuery("FROM AccidentType", AccidentType.class)
-                    .list();
-        }
+        return crudRepository.query("FROM AccidentType", AccidentType.class);
     }
 }
