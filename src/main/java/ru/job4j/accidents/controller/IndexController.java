@@ -16,7 +16,6 @@ public class IndexController {
 
     @GetMapping
     public String getIndexPage(Model model) {
-        model.addAttribute("user", "Lidija");
         model.addAttribute("accidents", accidentService.getAllAccidents());
         return "index";
     }
