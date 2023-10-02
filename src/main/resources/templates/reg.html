@@ -1,5 +1,8 @@
 <html>
 <body>
+<span th:if="${errorMessage}">
+    <div style="color:red; font-weight: bold; margin: 30px 0px;" th:text="${errorMessage}">
+    </div></span>
 <form name='login' th:action="@{/reg}" method='POST'>
   <table>
     <tr>
