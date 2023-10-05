@@ -19,7 +19,8 @@ public class UserDataService implements UserService {
             userDataRepository.save(user);
             return Optional.of(user);
         } catch (Exception e) {
-            return Optional.empty();
+            e.printStackTrace();
         }
+        return Optional.empty();
     }
 }
