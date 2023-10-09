@@ -32,7 +32,8 @@ public class Accident {
     @JoinColumn(name = "accident_types_id")
     private AccidentType type;
 
-    @ManyToMany(cascade = { CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.MERGE },
+                fetch = FetchType.EAGER)
     @JoinTable(
             name = "accidents_rules",
             joinColumns = @JoinColumn(name = "accidents_id"),
