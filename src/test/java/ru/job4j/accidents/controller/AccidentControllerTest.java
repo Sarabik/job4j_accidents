@@ -52,4 +52,5 @@ class AccidentControllerTest {
                 .andExpect(view().name("errors/404"))
                 .andExpect(content().string(containsString("Accident is not found")));
     }
+
 }

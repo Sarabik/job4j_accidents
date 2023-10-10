@@ -29,5 +29,4 @@ class RegistrationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("reg"));
     }
-
 }

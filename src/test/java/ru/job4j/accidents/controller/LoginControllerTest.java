@@ -29,14 +29,4 @@ class LoginControllerTest {
                 .andExpect(view().name("login"));
     }
 
-    /*
-    @Test
-    @WithMockUser
-    public void whenTestLogoutGetMethod() throws Exception {
-        mockMvc.perform(get("/logout"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(view().name("/login?logout=true"));
-    }
-    */
 }
