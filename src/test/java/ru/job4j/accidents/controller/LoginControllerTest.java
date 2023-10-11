@@ -29,4 +29,11 @@ class LoginControllerTest {
                 .andExpect(view().name("login"));
     }
 
+    @Test
+    @WithMockUser
+    public void whetTestLogoutMethod() throws Exception {
+        mockMvc.perform(get("/logout"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+    }
 }
